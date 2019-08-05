@@ -1,0 +1,26 @@
+/**
+ * stylus mixns
+ */
+// flex
+$flex($direction = row, $jc = flex-start, $ac = stretch, $ai = stretch)
+  display flex
+  flex-direction $direction
+  justify-content $jc
+  align-content $ac
+  align-items $ai
+
+// 渐变
+$bgGradient(s = rgba(234, 128, 128, 0.98), e = #F5B271)
+  background linear-gradient(to right, s 3%, e 100%)
+
+// 点击反馈
+$hover(bgc = #665f73)
+  background: bgc;
+
+$active(bgc = backgroundColor)
+  background: bgc;
+
+$textOverflow()
+  overflow hidden
+  text-overflow ellipsis
+  white-space nowrap

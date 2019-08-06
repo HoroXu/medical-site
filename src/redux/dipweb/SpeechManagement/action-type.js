@@ -1,3 +1,0 @@
-
-export const CHANNEL_PUSH = 'CHANNEL_PUSH';
-export const CHANNEL_MESSAGE = 'CHANNEL_MESSAGE';

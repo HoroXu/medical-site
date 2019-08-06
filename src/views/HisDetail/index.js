@@ -83,8 +83,10 @@ export default class HisDetail extends Component {
               </div>
               <Button
                 type="primary"
-                href={`http://dzs.tlytsg.com/downLoad.do?bookId=${
-                  this.props.location.pathname.split("/")[2]
+                // href={`http://dzs.tlytsg.com/downLoad.do?bookId=${
+                //   this.props.location.pathname.split("/")[2]
+                // }`}
+                href={`http://dzs.tlytsg.com/downLoad.do?bookId=124718
                 }`}
               >
                 点击下载
@@ -106,7 +108,9 @@ export default class HisDetail extends Component {
                 </div>
               </TabPane>
               <TabPane tab="摘要" key="2">
-                <div className="summary-area">{detailData.content?detailData.content:'暂无数据'}</div>
+                <div className="summary-area">
+                  {detailData.content ? detailData.content : "暂无数据"}
+                </div>
               </TabPane>
             </Tabs>
           </div>

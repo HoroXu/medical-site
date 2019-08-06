@@ -6,7 +6,6 @@ import { Link, Route, Switch, BrowserRouter } from "react-router-dom";
 import AxiosData from "@/utils/axios";
 import "./config/common.less";
 
-
 import RouteMap from "./Route";
 import { connect } from "react-redux";
 import Bottom from "./component/Bottom";
@@ -16,10 +15,25 @@ import Bottom from "./component/Bottom";
   mapDispatchToProps
 )
 export default class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      defaultHeight: ""
+    };
+  }
+  componentDidMount() {
+    this.setState({
+      defaultHeight: document.body.clientHeight
+    });
+  }
   render() {
+    console.log(this.state.defaultHeight, "默认高速-======");
     return (
       <div>
-        <RouteMap />
+        <div style={{ minHeight: this.state.defaultHeight - 156 }}>
+          <RouteMap />
+        </div>
+
         <Bottom />
       </div>
     );

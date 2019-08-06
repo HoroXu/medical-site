@@ -32,9 +32,8 @@ module.exports = {
     proxy: {
       "/": {
         target:
-          // "http://mock.cnsuning.com/mock/http://witdev.cnsuning.com:8080/",
           "http://47.100.245.81:80", //pre环境
-        // "http://witsit.admin.cnsuning.com/", //sit环境
+
 
         secure: true,
         changeOrigin: true

@@ -1,7 +1,6 @@
 import axios from "axios";
 import nprogress from "nprogress";
 import qs from "qs";
-import Conf from "../config/host";
 import { message } from "antd";
 import $ from "jquery";
 window.$ = $;
@@ -10,19 +9,6 @@ var source = CancelToken.source();
 
 axios.source = source;
 
-// axios.map = config => {
-//   if (!config) return;
-//   return axios.get(Conf.pmtpHost + "map?req=" + JSON.stringify(config), {
-//     map: true
-//   });
-// };
-
-// axios.mapSeries = config => {
-//   if (!config) return;
-//   return axios.get(Conf.pmtpHost + "mapSeries?req=" + JSON.stringify(config), {
-//     map: true
-//   });
-// };
 
 axios.interceptors.request.use(function(config) {
   nprogress.start();

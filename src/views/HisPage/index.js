@@ -191,11 +191,11 @@ export default class HisPage extends Component {
                       <div className="left-record">
                         <div className="record-title">
                           <span className="index">{index + 1}</span>
-                          {/* <Link to="/detail" className="title"> */}
-                            <span onClick={() => this.routerTo(item.bookId)}>
+                          <Link to={`/hisDetail/${item.bookId}`} className="title">
+                            {/* <span onClick={() => this.routerTo(item.bookId)}> */}
                               {item.bookName}
-                            </span>
-                          {/* </Link> */}
+                            {/* </span> */}
+                          </Link>
                           <span className="cited" />
                         </div>
                         <div className="record-subtitle">

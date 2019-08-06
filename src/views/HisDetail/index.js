@@ -2,20 +2,41 @@ import React, { Component } from "react";
 import "./index.less";
 import { Link } from "react-router-dom";
 import { Input, Menu, Icon, Pagination, Button, Tabs } from "antd";
+import AxiosData from "@/utils/axios";
+import Details from "../../assets/images/detail3.png";
 const { Search } = Input;
 const { TabPane } = Tabs;
 export default class HisDetail extends Component {
-  constructor(props, context) {
-    super(props, context);
-    console.info(props);
-    state = {
-      current: "1"
+  constructor(props) {
+    super(props);
+    this.state = {
+      current: "1",
+      detailData: ""
     };
-    this.bookId = props.location.state.data;
   }
 
+  //获取详情接口
+  queryDetail = bookId => {
+    AxiosData.get("/queryBookDetail.do", { bookId })
+      .then(res => {
+        console.log(res);
+        this.setState({
+          detailData: res
+        });
+      })
+      .catch(err => {
+        console.log(err);
+      });
+  };
+
   componentDidMount() {
-    console.log(this.bookId, "打印bookId====");
+    console.log(
+      this.props.location.pathname,
+      this.props.location.pathname.split("/"),
+      "打印bookId===="
+    );
+
+    this.queryDetail(this.props.location.pathname.split("/")[2]);
   }
   handleClick = e => {
     console.log("click ", e);
@@ -24,6 +45,7 @@ export default class HisDetail extends Component {
     });
   };
   render() {
+    const { detailData } = this.state;
     return (
       <div className="his-detail">
         <div className="top-search">
@@ -43,37 +65,48 @@ export default class HisDetail extends Component {
         <div className="book-detail-area">
           <div className="det1">
             <div className="book-img">
-              <img src="" />
+              <img src={Details} />
             </div>
             <div className="book-name">
-              <div className="p1">管理运筹学</div>
+              <div className="p1">{detailData.bookName}</div>
               <div className="p2">
-                作者：<span>韩伯棠</span>
+                作者：<span>{detailData.author}</span>
               </div>
               <div className="p2">
-                出版、发行者：<span>高等教育出版社</span>
+                出版、发行者：<span>{detailData.publisher}</span>
               </div>
-              <div className="p2">出版发行时间：2000</div>
-              <div className="p2">ISBN：7-04-007829-5</div>
-              <Button type="primary">点击下载</Button>
+              <div className="p2">
+                出版发行时间：<span>{detailData.addDate}</span>
+              </div>
+              <div className="p2">
+                ISBN：<span>{detailData.bn}</span>
+              </div>
+              <Button
+                type="primary"
+                href={`http://dzs.tlytsg.com/downLoad.do?bookId=${
+                  this.props.location.pathname.split("/")[2]
+                }`}
+              >
+                点击下载
+              </Button>
             </div>
           </div>
           <div className="det2">
             <Tabs onChange type="card">
               <TabPane tab="详细信息" key="1">
                 <div className="detail-info-area">
-                  <div className="p1">所有责任者： 韩伯棠</div>
-                  <div className="p2">所有题名： 管理运筹学</div>
-                  <div className="p2">标识号： ISBN :7-04-007829-5</div>
-                  <div className="p2">出版、发行者： 高等教育出版社</div>
-                  <div className="p2">关键词：</div>
+                  <div className="p1">所有责任者： {detailData.author}</div>
+                  <div className="p2">所有题名： {detailData.bookName}</div>
+                  <div className="p2">标识号： ISBN :{detailData.bn}</div>
+                  <div className="p2">
+                    出版、发行者： {detailData.publisher}
+                  </div>
+                  <div className="p2">关键词：{detailData.seoKeyWord}</div>
                   <div className="p2">载体形态： 404页</div>
                 </div>
               </TabPane>
               <TabPane tab="摘要" key="2">
-                <div className="summary-area">
-                  本书第一版作为教育部“高等教育面向2l世纪教学内容和课程体系改革计划”的研究成果和“21世纪课程教材”于2000年出版，2005年进行了修订，出了第二版。该书2002年被教育部评为全国普通高等学校优秀教材一等奖，2004年被教育部管理科学与工程教学指导委员会推荐为该专业的本科核心课程教材，被教育部推荐为研究生教学用书。
-                </div>
+                <div className="summary-area">{detailData.content?detailData.content:'暂无数据'}</div>
               </TabPane>
             </Tabs>
           </div>

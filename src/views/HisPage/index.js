@@ -16,7 +16,7 @@ export default class HisPage extends Component {
   };
 
   componentDidMount() {
-    console.log("jinrufuwu=====");
+    this.querySearch("");
     AxiosData.get("list.do")
       .then(res => {
         console.log(res, "打印出列表======");
@@ -88,7 +88,10 @@ export default class HisPage extends Component {
 
   //路由跳转
   routerTo(bookId) {
-    this.props.history.push({pathname: `/Detail/${bookId}`, state: {data: bookId}})
+    this.props.history.push({
+      pathname: `/Detail/${bookId}`,
+      state: { data: bookId }
+    });
   }
   render() {
     const { menuData, bookInfo, typeId, classId } = this.state;
@@ -191,9 +194,12 @@ export default class HisPage extends Component {
                       <div className="left-record">
                         <div className="record-title">
                           <span className="index">{index + 1}</span>
-                          <Link to={`/hisDetail/${item.bookId}`} className="title">
+                          <Link
+                            to={`/hisDetail/${item.bookId}`}
+                            className="title"
+                          >
                             {/* <span onClick={() => this.routerTo(item.bookId)}> */}
-                              {item.bookName}
+                            {item.bookName}
                             {/* </span> */}
                           </Link>
                           <span className="cited" />

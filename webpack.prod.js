@@ -19,9 +19,9 @@ module.exports = merge(common, {
     new webpack.DefinePlugin({
       "process.env.NODE_ENV": JSON.stringify("production")
     }),
-    new webpack.DllReferencePlugin({
-      manifest: path.resolve(__dirname, "public/dll", "manifest.json")
-    })
+    // new webpack.DllReferencePlugin({
+    //   manifest: path.resolve(__dirname, "public/dll", "manifest.json")
+    // })
   ],
   module: {
     rules: [

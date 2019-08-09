@@ -88,7 +88,7 @@ const HisPage = () => {
   useEffect(() => {
     queryBooks(keyWord, typeId, classId, page);
     // querySearch();
-  });
+  },[]);
 
   return (
     <div className="his-page">

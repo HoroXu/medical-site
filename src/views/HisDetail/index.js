@@ -49,17 +49,9 @@ export default class HisDetail extends Component {
     return (
       <div className="his-detail">
         <div className="top-search">
-          <div className="search-logo">
-            图书检索 > <span>详情</span>
-          </div>
-
-          <Search
-            className="search-area"
-            placeholder="input search text"
-            enterButton="检索"
-            size="large"
-            onSearch={value => console.log(value)}
-          />
+          <Link to="/">
+            <div className="search-logo">返回首页</div>
+          </Link>
         </div>
 
         <div className="book-detail-area">
@@ -86,8 +78,7 @@ export default class HisDetail extends Component {
                 // href={`http://dzs.tlytsg.com/downLoad.do?bookId=${
                 //   this.props.location.pathname.split("/")[2]
                 // }`}
-                href={`http://dzs.tlytsg.com/downLoad.do?bookId=124718
-                }`}
+                href={`http://dzs.tlytsg.com/downLoad.do?bookId=124718`}
               >
                 点击下载
               </Button>

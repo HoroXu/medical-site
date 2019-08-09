@@ -2,8 +2,6 @@ import axios from "axios";
 import nprogress from "nprogress";
 import qs from "qs";
 import { message } from "antd";
-import $ from "jquery";
-window.$ = $;
 var CancelToken = axios.CancelToken;
 var source = CancelToken.source();
 

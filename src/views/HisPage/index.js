@@ -97,18 +97,21 @@ export default class HisPage extends Component {
     const { menuData, bookInfo, typeId, classId } = this.state;
     return (
       <div className="his-page">
-        <Search
-          placeholder="各类学科类图书检索"
-          className="search-input"
-          enterButton="搜索"
-          onSearch={this.querySearch}
-        />
+        <div className='top-area'>
+          <Search
+            placeholder="各类学科类图书检索"
+            className="search-input"
+            enterButton="搜索"
+            onSearch={this.querySearch}
+          />
+          <div className="result-static">
+            找到<span className="result-num">{bookInfo.totalRows || 0}</span>
+            条结果。
+          </div>
+        </div>
+
         <div className="content-area">
           <div className="menu-area">
-            <div className="result-static">
-              找到<span className="result-num">{bookInfo.totalRows || 0}</span>
-              条结果。
-            </div>
             <Menu
               theme={this.state.theme}
               onClick={this.handleClick}
@@ -205,16 +208,10 @@ export default class HisPage extends Component {
                           <span className="cited" />
                         </div>
                         <div className="record-subtitle">
-                          <a href="javascript:;">{item.publisher}</a>
-                          <a className="creator" href="javascript:;">
-                            {item.addDate}
-                          </a>
-                          <a className="creator" href="javascript:;">
-                            {item.bn || "ISBN"}
-                          </a>
-                          <a className="creator" href="javascript:;">
-                            {item.author}
-                          </a>
+                          <span>{item.publisher}</span>
+                          <span className="creator">{item.addDate}</span>
+                          <span className="creator">{item.bn || "ISBN"}</span>
+                          <span className="creator">{item.author}</span>
                         </div>
                         <div className="record-desc">{item.content}</div>
                       </div>

@@ -6,7 +6,6 @@ import store from "../src/redux/store";
 import { HashRouter } from "react-router-dom";
 import { LocaleProvider } from 'antd'
 import zh_CN from 'antd/lib/locale-provider/zh_CN'
-import 'moment/locale/zh-cn'
 require("./assets/font/iconfont.js");
 
 ReactDOM.render(

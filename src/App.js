@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import $ from "jquery";
 import { Layout } from "antd";
 import "./App.less";
 import { Link, Route, Switch, BrowserRouter } from "react-router-dom";

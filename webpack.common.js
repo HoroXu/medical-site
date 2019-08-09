@@ -5,6 +5,8 @@ const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const UglifyJsPlugin = require("uglifyjs-webpack-plugin");
 const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 const CompressionWebpackPlugin = require("compression-webpack-plugin");
+const BundleAnalyzerPlugin = require("webpack-bundle-analyzer")
+  .BundleAnalyzerPlugin;
 const autoprefixer = require("autoprefixer");
 const webpack = require("webpack");
 const devMode = process.env.NODE_ENV !== "production";
@@ -60,27 +62,27 @@ module.exports = {
       new OptimizeCSSAssetsPlugin({})
     ],
 
-    splitChunks: {
-      chunks: "all", //默认只作用于异步模块，为`all`时对所有模块生效,`initial`对同步模块有效
-      minSize: 30000, //合并前模块文件的体积
-      minChunks: 1, //最少被引用次数
-      maxAsyncRequests: 5,
-      maxInitialRequests: 3,
-      automaticNameDelimiter: "~", //自动命名连接符
-      cacheGroups: {
-        vendors: {
-          test: /[\\/]node_modules[\\/]/,
-          minChunks: 1,
-          priority: -10 //优先级更高
-        },
-        default: {
-          test: /[\\/]src[\\/]js[\\/]/,
-          minChunks: 2, //一般为非第三方公共模块
-          priority: -20,
-          reuseExistingChunk: true
-        }
-      }
-    },
+    // splitChunks: {
+    //   chunks: "all", //默认只作用于异步模块，为`all`时对所有模块生效,`initial`对同步模块有效
+    //   minSize: 30000, //合并前模块文件的体积
+    //   minChunks: 1, //最少被引用次数
+    //   maxAsyncRequests: 5,
+    //   maxInitialRequests: 3,
+    //   automaticNameDelimiter: "~", //自动命名连接符
+    //   cacheGroups: {
+    //     vendors: {
+    //       test: /[\\/]node_modules[\\/]/,
+    //       minChunks: 1,
+    //       priority: -10 //优先级更高
+    //     },
+    //     default: {
+    //       test: /[\\/]src[\\/]js[\\/]/,
+    //       minChunks: 2, //一般为非第三方公共模块
+    //       priority: -20,
+    //       reuseExistingChunk: true
+    //     }
+    //   }
+    // },
     runtimeChunk: {
       name: "manifest"
     }
@@ -95,7 +97,7 @@ module.exports = {
       filename: "index.html",
       template: "./index.html"
     }),
-    // new webpack.HotModuleReplacementPlugin(),
+    new BundleAnalyzerPlugin(),
     new MiniCssExtractPlugin({
       filename: "[name].[hash].css",
       chunkFilename: "[id].[hash].css"
@@ -168,12 +170,6 @@ module.exports = {
                 path.join(__dirname, "./src/assets/"),
                 path.join(__dirname, "./")
               ]
-            }
-          },
-          {
-            loader: require.resolve("stylus-loader"),
-            options: {
-              import: [path.join(__dirname, "./src/config/stylus/index.styl")]
             }
           }
         ]

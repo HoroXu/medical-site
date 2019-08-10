@@ -103,6 +103,7 @@ export default class HisPage extends Component {
             className="search-input"
             enterButton="搜索"
             onSearch={this.querySearch}
+            size="large"
           />
           <div className="result-static">
             找到<span className="result-num">{bookInfo.totalRows || 0}</span>

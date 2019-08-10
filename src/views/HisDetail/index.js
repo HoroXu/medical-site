@@ -75,10 +75,9 @@ export default class HisDetail extends Component {
               </div>
               <Button
                 type="primary"
-                // href={`http://dzs.tlytsg.com/downLoad.do?bookId=${
-                //   this.props.location.pathname.split("/")[2]
-                // }`}
-                href={`http://dzs.tlytsg.com/downLoad.do?bookId=124718`}
+                href={`http://dzs.tlytsg.com/downLoad.do?bookId=${
+                  this.props.location.pathname.split("/")[2]
+                }`}
               >
                 点击下载
               </Button>

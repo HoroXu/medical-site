@@ -4,7 +4,7 @@ import "./App.less";
 import { HashRouter as Router, Route, Switch, Link } from "react-router-dom";
 import { connect } from "react-redux";
 
-import HisPage from "./views/HisPage";
+import HisPage from "./views/HisPage/hook";
 import HisDetail from "./views/HisDetail";
 
 @connect(

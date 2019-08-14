@@ -97,7 +97,7 @@ export default class HisPage extends Component {
     const { menuData, bookInfo, typeId, classId } = this.state;
     return (
       <div className="his-page">
-        <div className='top-area'>
+        <div className="top-area">
           <Search
             placeholder="各类学科类图书检索"
             className="search-input"
@@ -121,21 +121,6 @@ export default class HisPage extends Component {
               selectedKeys={[this.state.current]}
               mode="inline"
             >
-              {/* <SubMenu
-                key="sub4"
-                title={
-                  <span>
-                    <Icon type="setting" />
-                    <span>Navigation Three</span>
-                  </span>
-                }
-              >
-                <Menu.Item key="9">Option 9</Menu.Item>
-                <Menu.Item key="10">Option 10</Menu.Item>
-                <Menu.Item key="11">Option 11</Menu.Item>
-                <Menu.Item key="12">Option 12</Menu.Item>
-              </SubMenu> */}
-
               {menuData.length > 0 &&
                 menuData.map((item, index) => {
                   return (
@@ -153,7 +138,30 @@ export default class HisPage extends Component {
                             >
                               {item.children !== null &&
                                 item.children.map((item, index) => {
-                                  return (
+                                  return item.children !== null ? (
+                                    <SubMenu
+                                      key={item.id}
+                                      title={<span>{item.typeName}</span>}
+                                    >
+                                      {item.children !== null &&
+                                        item.children.map((item, index) => {
+                                          return (
+                                            <Menu.Item
+                                              key={item.id}
+                                              onClick={() =>
+                                                this.queryBooks(
+                                                  item.typeId,
+                                                  item.classId,
+                                                  1
+                                                )
+                                              }
+                                            >
+                                              {item.typeName}
+                                            </Menu.Item>
+                                          );
+                                        })}
+                                    </SubMenu>
+                                  ) : (
                                     <Menu.Item
                                       key={item.id}
                                       onClick={() =>
@@ -175,15 +183,11 @@ export default class HisPage extends Component {
                           );
                         })}
                       {/* </SubMenu> */}
-
-                      {/* <Menu.Item key="9">11</Menu.Item>
-                      <Menu.Item key="10">Option 10</Menu.Item>
-                      <Menu.Item key="11">Option 11</Menu.Item>
-                      <Menu.Item key="12">Option 12</Menu.Item> */}
                     </SubMenu>
                   );
                 })}
             </Menu>
+         
           </div>
           <div className="right-area">
             <div className="record-item-list">

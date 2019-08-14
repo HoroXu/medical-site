@@ -33,7 +33,7 @@ export default class App extends Component {
           <RouteMap />
         </div>
 
-        <Bottom />
+        {/* <Bottom /> */}
       </div>
     );
   }

@@ -2,6 +2,7 @@ const webpack = require("webpack");
 const merge = require("webpack-merge");
 const common = require("./webpack.common.js");
 const UglifyJSPlugin = require("uglifyjs-webpack-plugin");
+const CompressionPlugin = require("compression-webpack-plugin");
 const path = require("path");
 
 module.exports = merge(common, {
@@ -20,9 +21,14 @@ module.exports = merge(common, {
     new webpack.DefinePlugin({
       "process.env.NODE_ENV": JSON.stringify("production")
     }),
-//     new webpack.DllReferencePlugin({
-//       manifest: path.resolve(__dirname, "public/dll", "manifest.json")
-//     })
+
+    new CompressionPlugin({
+      test: /\.js(\?.*)?$/i,
+      filename: '[path].gz[query]',
+    })
+    //     new webpack.DllReferencePlugin({
+    //       manifest: path.resolve(__dirname, "public/dll", "manifest.json")
+    //     })
   ],
   module: {
     rules: [

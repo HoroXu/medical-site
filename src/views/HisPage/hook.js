@@ -12,8 +12,7 @@ const HisPage = () => {
   const [typeId, setTypeId] = useState("");
   const [classId, setClassId] = useState("");
   const [totalPage, setTotalPage] = useState(0);
-
-  const [page, setPage] = useState(0);
+  const [page, setPage] = useState(1);
   const [keyWord, setKeyWord] = useState("");
 
   //获取侧边栏列表
@@ -28,38 +27,7 @@ const HisPage = () => {
       });
   }
 
-  //   handleClick = e => {
-  //     // console.log("click ", e);
-  //     this.setState({
-  //       current: e.key
-  //     });
-  //   };
-  //全部查询
-
-  //   function querySearch(keyWord) {
-  //     AxiosData.get("queryBookByKeyWord.do", {
-  //       keyWord: keyWord,
-  //       typeId: "",
-  //       classId: "",
-  //       currentPage: 1
-  //     })
-  //       .then(res => {
-  //         console.log(res, "全部查询打======");
-  //         setBookInfo(res);
-  //       })
-  //       .catch(err => {
-  //         console.log(err);
-  //       });
-  //   }
-
-  //   function queryPage(page) {
-  //     console.log(page);
-  //     // const { typeId, classId } = this.state;
-  //     queryBooks(typeId, classId, page);
-  //   }
-
   //查询具体书名
-
   function queryBooks(keyWord, typeId, classId, page) {
     console.log(keyWord, typeId, classId, page, "变换页码======");
     setTypeId(typeId);
@@ -82,37 +50,31 @@ const HisPage = () => {
 
   useEffect(() => {
     queryList();
-    // querySearch();
   }, []);
 
   useEffect(() => {
     queryBooks(keyWord, typeId, classId, page);
-    // querySearch();
-  },[]);
+  }, [keyWord, typeId, classId, page]);
 
   return (
     <div className="his-page">
-      <Search
-        placeholder="各类学科类图书检索"
-        className="search-input"
-        enterButton="搜索"
-        onSearch={() => {
-          setKeyWord(value), setPage(1);
-        }}
-      />
+      <div className="top-area">
+        <Search
+          placeholder="各类学科类图书检索"
+          className="search-input"
+          enterButton="搜索"
+          onSearch={value => {
+            setKeyWord(value), setPage(1);
+          }}
+        />
+        <div className="result-static">
+          找到<span className="result-num">{bookInfo.totalRows || 0}</span>
+          条结果。
+        </div>
+      </div>
       <div className="content-area">
         <div className="menu-area">
-          <div className="result-static">
-            找到<span className="result-num">{bookInfo.totalRows || 0}</span>
-            条结果。
-          </div>
-          <Menu
-            // onClick={this.handleClick}
-            style={{ width: 256 }}
-            defaultOpenKeys={["sub1"]}
-            // selectedKeys={[this.state.current]}
-            mode="inline"
-          >
+          <Menu style={{ width: 256 }} defaultOpenKeys={["sub1"]} mode="inline">
             {menuData.length > 0 &&
               menuData.map((item, index) => {
                 return (
@@ -120,6 +82,7 @@ const HisPage = () => {
                     key={item.typeId}
                     title={<span>{item.typeName}</span>}
                   >
+                    {/* <SubMenu key="sub4" title=""> */}
                     {item.children !== null &&
                       item.children.map((item, index) => {
                         return (
@@ -129,7 +92,28 @@ const HisPage = () => {
                           >
                             {item.children !== null &&
                               item.children.map((item, index) => {
-                                return (
+                                return item.children !== null ? (
+                                  <SubMenu
+                                    key={item.id}
+                                    title={<span>{item.typeName}</span>}
+                                  >
+                                    {item.children !== null &&
+                                      item.children.map((item, index) => {
+                                        return (
+                                          <Menu.Item
+                                            key={item.id}
+                                            onClick={() => {
+                                              setTypeId(item.typeId),
+                                                setClassId(item.classId),
+                                                setPage(1);
+                                            }}
+                                          >
+                                            {item.typeName}
+                                          </Menu.Item>
+                                        );
+                                      })}
+                                  </SubMenu>
+                                ) : (
                                   <Menu.Item
                                     key={item.id}
                                     onClick={() =>
@@ -150,6 +134,7 @@ const HisPage = () => {
                           </SubMenu>
                         );
                       })}
+                    {/* </SubMenu> */}
                   </SubMenu>
                 );
               })}
@@ -172,9 +157,7 @@ const HisPage = () => {
                           to={`/hisDetail/${item.bookId}`}
                           className="title"
                         >
-                          {/* <span onClick={() => this.routerTo(item.bookId)}> */}
                           {item.bookName}
-                          {/* </span> */}
                         </Link>
                         <span className="cited" />
                       </div>
@@ -203,8 +186,9 @@ const HisPage = () => {
             pageSize={10}
             defaultCurrent={1}
             hideOnSinglePage={true}
-            // onChange={() => this.queryBooks(typeId, classId, page)}
-            onChange={() => setPage(page)}
+            onChange={page => {
+              setPage(page), console.log(page, "切换页码=====");
+            }}
           />
         </div>
       </div>

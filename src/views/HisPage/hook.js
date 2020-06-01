@@ -1,10 +1,11 @@
 import React, { Component, useState, useEffect } from "react";
 import "./index.less";
 import { Link } from "react-router-dom";
-import { Input, Menu, Pagination } from "antd";
+import { Input, Menu, Pagination, Select } from "antd";
 import AxiosData from "@/utils/axios";
 const { SubMenu } = Menu;
 const { Search } = Input;
+const { Option } = Select;
 
 const HisPage = () => {
   const [menuData, setMenuData] = useState([]);
@@ -14,15 +15,16 @@ const HisPage = () => {
   const [totalPage, setTotalPage] = useState(0);
   const [page, setPage] = useState(1);
   const [keyWord, setKeyWord] = useState("");
+  const [searchdata, setSearchdata] = useState([]);
 
   //获取侧边栏列表
   function queryList() {
     AxiosData.get("list.do")
-      .then(res => {
+      .then((res) => {
         console.log(res, "打印出列表======");
         setMenuData(res);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   }
@@ -37,13 +39,13 @@ const HisPage = () => {
       keyWord: keyWord,
       typeId: typeId,
       classId: classId,
-      currentPage: page
+      currentPage: page,
     })
-      .then(res => {
+      .then((res) => {
         console.log(res, "打印具体书======");
         setBookInfo(res);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   }
@@ -56,21 +58,47 @@ const HisPage = () => {
     queryBooks(keyWord, typeId, classId, page);
   }, [keyWord, typeId, classId, page]);
 
+  const options = [{ value: 1, text: "222" }].map((d) => (
+    <Option key={d.value}>{d.text}</Option>
+  ));
+
   return (
     <div className="his-page">
       <div className="top-area">
-        <Search
-          placeholder="各类学科类图书检索"
-          className="search-input"
-          enterButton="搜索"
-          onSearch={value => {
-            setKeyWord(value), setPage(1);
-          }}
-        />
-        <div className="result-static">
-          找到<span className="result-num">{bookInfo.totalRows || 0}</span>
-          条结果。
+        <div className="left-area">
+          {/* <Search
+            placeholder="各类学科类图书检索"
+            className="search-input"
+            enterButton="搜索"
+            onSearch={(value) => {
+              setKeyWord(value), setPage(1);
+            }}
+          /> */}
+
+          <Select
+            placeholder="各类学科类图书检索"
+            className="search-input"
+            enterButton="搜索"
+            onSearch={(value) => {
+              setKeyWord(value), setPage(1);
+            }}
+            showSearch
+            value={searchdata}
+            defaultActiveFirstOption={false}
+            showArrow={false}
+            filterOption={false}
+            // onChange={this.handleChange}
+            notFoundContent={null}
+          >
+            {options}
+          </Select>
+          <div className="result-static">
+            找到<span className="result-num">{bookInfo.totalRows || 0}</span>
+            条结果。
+          </div>
         </div>
+
+        <div className="right-area">登录</div>
       </div>
       <div className="content-area">
         <div className="menu-area">
@@ -182,11 +210,11 @@ const HisPage = () => {
           <Pagination
             className="pagination-area"
             total={bookInfo.totalPage}
-            showTotal={total => `共 ${total} 记录`}
+            showTotal={(total) => `共 ${total} 记录`}
             pageSize={10}
             defaultCurrent={1}
             hideOnSinglePage={true}
-            onChange={page => {
+            onChange={(page) => {
               setPage(page), console.log(page, "切换页码=====");
             }}
           />

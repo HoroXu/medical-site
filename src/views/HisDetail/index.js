@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import "./index.less";
 import { Link } from "react-router-dom";
-import { Input, Menu, Icon, Pagination, Button, Tabs } from "antd";
+import { Input, Button, Tabs } from "antd";
 import AxiosData from "@/utils/axios";
 import Details from "../../assets/images/detail3.png";
 const { Search } = Input;

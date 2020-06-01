@@ -5,7 +5,7 @@ import { HashRouter as Router, Route, Switch, Link } from "react-router-dom";
 import { connect } from "react-redux";
 
 import HisPage from "./views/HisPage/hook";
-import HisDetail from "./views/HisDetail";
+import HisDetail from "./views/HisDetail/hook";
 
 @connect(
   mapStateToProps,

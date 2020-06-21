@@ -1,13 +1,13 @@
 import React, { Component, useState, useEffect } from "react";
 import "./index.less";
 import { Link } from "react-router-dom";
-import { Input, Menu, Pagination, Select } from "antd";
+import { Input, Menu, Pagination, Select, Button } from "antd";
 import AxiosData from "@/utils/axios";
 const { SubMenu } = Menu;
 const { Search } = Input;
 const { Option } = Select;
 
-const HisPage = () => {
+const HisPage = (props) => {
   const [menuData, setMenuData] = useState([]);
   const [bookInfo, setBookInfo] = useState({});
   const [typeId, setTypeId] = useState("");
@@ -49,6 +49,17 @@ const HisPage = () => {
         console.log(err);
       });
   }
+  //退出
+  const loginoutFn = () => {
+    AxiosData.get("ffn-web/logout.htm")
+      .then((res) => {
+        console.log(res, "打印出列表======");
+        props.history.push("/");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
 
   useEffect(() => {
     queryList();
@@ -97,8 +108,14 @@ const HisPage = () => {
             条结果。
           </div>
         </div>
-
-        <div className="right-area">登录</div>
+        <a href="http://dzs.tlytsg.com/ffn-web/logout.htm">
+          <Button
+            className="right-area"
+            
+          >
+            退出
+          </Button>
+        </a>
       </div>
       <div className="content-area">
         <div className="menu-area">

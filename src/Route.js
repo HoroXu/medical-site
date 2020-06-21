@@ -4,6 +4,7 @@ import "./App.less";
 import { HashRouter as Router, Route, Switch, Link } from "react-router-dom";
 import { connect } from "react-redux";
 
+import LoginPage from "./views/LoginPage";
 import HisPage from "./views/HisPage/hook";
 import HisDetail from "./views/HisDetail/hook";
 
@@ -22,7 +23,7 @@ export default class App extends Component {
       <Router>
         <Switch>
           <React.Fragment>
-            <Route exact path="/" component={HisPage} />
+            <Route exact path="/" component={LoginPage} />
 
             <Layout>
               <div className="dip-content">

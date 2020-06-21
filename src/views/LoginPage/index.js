@@ -7,6 +7,7 @@ import "./index.less";
 const LoginPage = (props) => {
   const [userName, setUserName] = useState("");
   const [passWord, setPassWord] = useState("");
+  const [pageHeight, setPageHeight] = useState(0);
   //获取用户名
   const queryUserName = (e) => {
     const { value } = e.target;
@@ -21,7 +22,7 @@ const LoginPage = (props) => {
 
   //登录接口
   const loginFn = () => {
-    console.log(userName, passWord,'登录====')
+    console.log(userName, passWord, "登录====");
     AxiosData.get("ffn-web/login.htm", {
       userCode: userName,
       passwd: passWord,
@@ -38,8 +39,12 @@ const LoginPage = (props) => {
         message.error(err);
       });
   };
+
+  useEffect(() => {
+    setPageHeight(document.body.clientHeight);
+  }, []);
   return (
-    <div className="login-page">
+    <div className="login-page" style={{ height: pageHeight }}>
       <div className="flex-item">
         <div className="item-title">登录名：</div>
         <Input onChange={queryUserName} style={{ width: 300 }} />

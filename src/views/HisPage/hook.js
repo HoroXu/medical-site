@@ -1,7 +1,7 @@
 import React, { Component, useState, useEffect } from "react";
 import "./index.less";
 import { Link } from "react-router-dom";
-import { Input, Menu, Pagination, Select, Button } from "antd";
+import { Input, Menu, Pagination, Select, Button, message } from "antd";
 import AxiosData from "@/utils/axios";
 const { SubMenu } = Menu;
 const { Search } = Input;
@@ -54,7 +54,11 @@ const HisPage = (props) => {
     AxiosData.get("ffn-web/logout.htm")
       .then((res) => {
         console.log(res, "打印出列表======");
-        props.history.push("/");
+        if (res.status == 200) {
+          props.history.push("/");
+        } else {
+          message.error('退出失败')
+        }
       })
       .catch((err) => {
         console.log(err);
@@ -108,14 +112,11 @@ const HisPage = (props) => {
             条结果。
           </div>
         </div>
-        <a href="http://dzs.tlytsg.com/ffn-web/logout.htm">
-          <Button
-            className="right-area"
-            
-          >
-            退出
-          </Button>
-        </a>
+        {/* <a href="http://dzs.tlytsg.com/ffn-web/logout.htm"> */}
+        <Button className="right-area" onClick={loginoutFn}>
+          退出
+        </Button>
+        {/* </a> */}
       </div>
       <div className="content-area">
         <div className="menu-area">

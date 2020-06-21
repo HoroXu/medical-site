@@ -17,23 +17,19 @@ export default class App extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      defaultHeight: ""
+      defaultHeight: "",
     };
   }
   componentDidMount() {
     this.setState({
-      defaultHeight: document.body.clientHeight
+      defaultHeight: document.body.clientHeight,
     });
   }
   render() {
     console.log(this.state.defaultHeight, "默认高速-======");
     return (
-      <div>
-        <div style={{ minHeight: this.state.defaultHeight - 156 }}>
-          <RouteMap />
-        </div>
-
-        {/* <Bottom /> */}
+      <div style={{ minHeight: this.state.defaultHeight - 156 }}>
+        <RouteMap />
       </div>
     );
   }

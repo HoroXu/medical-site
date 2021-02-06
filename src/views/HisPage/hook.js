@@ -57,7 +57,7 @@ const HisPage = (props) => {
         if (res.status == 200) {
           props.history.push("/");
         } else {
-          message.error('退出失败')
+          message.error("退出失败");
         }
       })
       .catch((err) => {
@@ -108,15 +108,16 @@ const HisPage = (props) => {
             {options}
           </Select>
           <div className="result-static">
-            找到<span className="result-num">{bookInfo.totalRows || 0}</span>
+            找到
+            <span className="result-num">
+              {(bookInfo && bookInfo.totalRows) || 0}
+            </span>
             条结果。
           </div>
         </div>
-        {/* <a href="http://dzs.tlytsg.com/ffn-web/logout.htm"> */}
-        <Button className="right-area" onClick={loginoutFn}>
-          退出
-        </Button>
-        {/* </a> */}
+        <a href="http://dzs.tlytsg.com/ffn-web/logout.htm">
+          <Button className="right-area">退出</Button>
+        </a>
       </div>
       <div className="content-area">
         <div className="menu-area">
@@ -227,7 +228,7 @@ const HisPage = (props) => {
           </div>
           <Pagination
             className="pagination-area"
-            total={bookInfo.totalPage}
+            total={bookInfo.totalRows}
             showTotal={(total) => `共 ${total} 记录`}
             pageSize={10}
             defaultCurrent={1}

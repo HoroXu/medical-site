@@ -10,11 +10,11 @@ const HisDetail = () => {
   //获取详情接口
   function queryDetail(bookId) {
     AxiosData.get("/queryBookDetail.do", { bookId })
-      .then(res => {
+      .then((res) => {
         console.log(res);
         setDetailData(res);
       })
-      .catch(err => {
+      .catch((err) => {
         console.log(err);
       });
   }
@@ -53,8 +53,8 @@ const HisDetail = () => {
             </div>
             <Button
               type="primary"
-              href={`http://dzs.tlytsg.com/downLoad.do?bookId=${
-                window.location.hash .split("/")[2]
+              href={`${window.location.origin}/downLoad.do?bookId=${
+                window.location.hash.split("/")[2]
               }`}
             >
               点击下载

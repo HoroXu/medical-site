@@ -23,8 +23,7 @@ export default class App extends Component {
       <Router>
         <Switch>
           <React.Fragment>
-            <Route exact path="/" component={LoginPage} />
-
+            <Route exact path="/" component={HisPage} />
             <Layout>
               <div className="dip-content">
                 <Route path="/hisPage" component={HisPage} />
